@@ -202,7 +202,7 @@ const isAligned = (item) => {
 
     </LayoutPanel>
     <Transition>
-      <ActivitySettingsPanel v-if="editTypes" title="Edit Learning Types" :class="{ 'z-10': editTypes }"
+      <ActivitySettingsPanel v-if="editTypes" title="About Learning Types" :class="{ 'z-10': editTypes }"
         @close-panel="toggleEditTypes" id="activity-type-select">
         <template v-slot:description>
           <p>Associate Learning Types here.</p>
