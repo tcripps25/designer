@@ -249,7 +249,7 @@ const isAligned = (item) => {
                     </div>
                   </template>
                   <UToggle v-model="isAligned(item).value"
-                    :inputId="'activity-' + activityIndex + item.value + '-switch-' + index" />
+                    :inputId="'activity-' + index + item.value + '-switch-' + index" />
                 </UFormGroup>
               </li>
             </ul>
