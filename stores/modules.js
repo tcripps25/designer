@@ -392,7 +392,7 @@ const graphColors = [
         newActivity.duration = 0;
       
         if (weeks.value[weekIndex].activities.length >= 0) {
-          newActivity.name = 'New Activity ' + (weeks.value[weekIndex].activities.length + 1);
+          newActivity.title = 'New Activity ' + (weeks.value[weekIndex].activities.length + 1);
         }
         weeks.value[weekIndex].activities.push(newActivity);
       };

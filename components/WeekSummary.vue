@@ -13,7 +13,7 @@ const editItems = ref([
     label: 'Edit',
     icon: 'i-heroicons-pencil-square-20-solid',
     click: () => {
-      console.log('Edit')
+      navigateTo('/design/week-' + props.index)
     }
   }, {
     label: 'Duplicate',
@@ -32,7 +32,7 @@ const editItems = ref([
 </script>
 
 <template>
-  <LayoutPanel :title="week.name">
+  <LayoutPanel :title="week.name" :to="'/design/week-' + index">
     <template v-slot:subtitle>
       <p>Week Commencing: {{ week.startDate }}</p>
     </template>
