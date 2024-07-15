@@ -5,9 +5,18 @@ export const useModulesStore = defineStore('modules', () => {
     const startDate = ref(new Date())
     const key = ref('')
   
-    function updateWeeks(newWeeks) {
-      weeks.value = newWeeks
-    }
+    // Function to update the weeks array and ensure indexes are updated
+function updateWeeks(newWeeks) {
+  weeks.value = newWeeks
+  updateWeekIndexes() // Ensure indexes are updated
+}
+
+// Function to update the indexes of the weeks
+function updateWeekIndexes() {
+  weeks.value.forEach((week, index) => {
+    week.updateIndex(index)
+  })
+}
   
     // Learning outcomes and assessments
     const learningOutcomes = ref([
@@ -372,20 +381,42 @@ const graphColors = [
       }
       const tempDescription = ''
       const tempActivities = []
-  
+      
       const newWeek = new Week(tempName, startDate, tempDescription, tempActivities)
       weeks.value.push(newWeek)
+      
+    }
+
+    const deleteWeek = (weekIndex) => {
+      weeks.value.splice(weekIndex, 1);
     }
 
     const duplicateWeek = (week) => {
         const newWeek = JSON.parse(JSON.stringify(week)); // Deep copy using JSON methods
         newWeek.name = 'Copy of ' + newWeek.name;
         weeks.value.push(newWeek);
+        
+        // Get the new week's index
+          const newWeekIndex = weeks.value.length - 1;
+
+        // Update the weekIndex of each activity within the new week
+        if (newWeek.activities && newWeek.activities.length > 0) {
+          newWeek.activities.forEach(activity => {
+            activity.parentWeek = newWeekIndex;
+          });
+        }
       };
+
+      const duplicateActivity = (weekIndex, activity) => {
+        const newActivity = JSON.parse(JSON.stringify(activity)); // Deep copy using JSON methods
+        newActivity.title = 'Copy of ' + newActivity.title;
+        weeks.value[weekIndex].activities.push(newActivity);
+      }
   
-    const addWeek = (week) => {
-      weeks.value.push(week)
-    }
+        const addWeek = (week) => {
+          weeks.value.push(week)
+
+        }
 
     const addActivity = (weekIndex) => {
         const newActivity = new Activity();
@@ -393,8 +424,13 @@ const graphColors = [
       
         if (weeks.value[weekIndex].activities.length >= 0) {
           newActivity.title = 'New Activity ' + (weeks.value[weekIndex].activities.length + 1);
+          newActivity.parentWeek = weekIndex
         }
         weeks.value[weekIndex].activities.push(newActivity);
+      };
+
+      const removeActivity = (weekIndex, activityIndex) => {
+        weeks.value[weekIndex].activities.splice(activityIndex, 1);
       };
 
       const getWeek = (index) => {
@@ -433,7 +469,10 @@ const graphColors = [
       key,
       duplicateWeek,
       addActivity,
-      getWeek
+      getWeek,
+      removeActivity,
+      duplicateActivity,
+      deleteWeek
     }
   })
   

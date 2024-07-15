@@ -10,7 +10,8 @@ export default class Activity {
     color,
     selectedTypes,
     selectedAlignments,
-    selectedMoodle
+    selectedMoodle,
+    parentWeek,
   ) {
     this.title = title
     this.instructions = instructions
@@ -21,6 +22,7 @@ export default class Activity {
     this.selectedTypes = []
     this.selectedAlignments = []
     this.selectedMoodle = []
+    this.parentWeek = parentWeek
   }
 
   getColor() {
