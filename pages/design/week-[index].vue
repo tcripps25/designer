@@ -9,7 +9,7 @@ const week = module.getWeek(route.params.index)
 </script>
 
 <template>
-    <LayoutPage title="Design" :suffix="week.name">
+    <LayoutPage title="Design" :suffix="week.name + ' - ' + week.formattedDate">
 
         <template v-slot:action>
             <UButton @click="module.addActivity(route.params.index)" label="Add Activity" title="Add Activity"

@@ -100,16 +100,7 @@ const graphColors = [
   '#00BCD4', // Cyan
   '#9E9E9E', // Grey
   '#F44336', // Dark Red
-  '#673AB7', // Dark Purple (duplicate)
-  '#4CAF50', // Dark Green (duplicate)
-  '#2196F3', // Dark Blue (duplicate)
-  '#FFC107', // Dark Amber (duplicate)
-  '#9C27B0', // Dark Purple (duplicate)
-  '#3F51B5', // Dark Indigo (duplicate)
-  '#E91E63', // Dark Pink (duplicate)
-  '#FF9800', // Dark Orange (duplicate)
-  '#795548', // Dark Brown (duplicate)
-  '#607D8B' // Dark Blue Grey (duplicate)
+
 ]
   
     // get the colour of the activity type by it's label
@@ -372,20 +363,26 @@ const graphColors = [
   
     // Store actions
     const incrementWeek = (name, description, activities) => {
-      let tempName = ''
-  
+      let tempName = '';
+    
       if (weeks.value && weeks.value.length >= 0) {
-        tempName = 'New Week ' + (weeks.value.length + 1)
+        tempName = 'New Week ' + (weeks.value.length + 1);
       } else {
-        tempName = 'New Week'
+        tempName = 'New Week';
       }
-      const tempDescription = ''
-      const tempActivities = []
-      
-      const newWeek = new Week(tempName, startDate, tempDescription, tempActivities)
-      weeks.value.push(newWeek)
-      
-    }
+    
+      const tempDescription = description || ''; // Use provided description or empty string
+      const tempActivities = activities || []; // Use provided activities or empty array
+    
+      // Calculate the start date for the new week
+      const lastWeekStartDate = weeks.value.length > 0 ? weeks.value[weeks.value.length - 1].startDate : startDate.value;
+      const newStartDate = new Date(lastWeekStartDate);
+      newStartDate.setDate(newStartDate.getDate() + 7); // Increment by 7 days
+    
+      // Create a new Week instance with calculated start date
+      const newWeek = new Week(tempName, newStartDate, tempDescription, tempActivities);
+      weeks.value.push(newWeek);
+    };
 
     const deleteWeek = (weekIndex) => {
       weeks.value.splice(weekIndex, 1);

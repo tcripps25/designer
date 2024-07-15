@@ -25,7 +25,7 @@ function openModal() {
     onDelete() {
       module.removeActivity(props.activity.parentWeek, props.index);
       toast.add({
-        title: 'Activity Deleted: ' + props.activity.title,
+        title: 'Deleted: ' + props.activity.title,
         id: 'delete-activity' + props.index + '-notice',
       })
       modal.close()
@@ -40,7 +40,7 @@ const editItems = ref([
     click: () => {
       module.duplicateActivity(props.activity.parentWeek, props.activity);
       toast.add({
-        title: 'Duplicated ' + props.activity.title,
+        title: 'Duplicated: ' + props.activity.title,
         id: 'duplicate-activity' + props.index + '-notice',
       });
     }

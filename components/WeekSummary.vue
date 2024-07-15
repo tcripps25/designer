@@ -29,7 +29,7 @@ function deleteModal() {
     onDelete() {
       module.deleteWeek(props.index);
       toast.add({
-        title: 'Week Deleted: ' + props.week.name,
+        title: 'Deleted: ' + props.week.name,
         id: 'modal-delete',
       });
       modal.close()
@@ -51,7 +51,7 @@ const editItems = ref([
     click: () => {
       module.duplicateWeek(props.week);
       toast.add({
-        title: 'Duplicated ' + props.week.name,
+        title: 'Duplicated:' + props.week.name,
         id: 'duplicate-week' + props.index + '-notice',
       });
     }
@@ -68,7 +68,7 @@ const editItems = ref([
 <template>
   <LayoutPanel :title="week.name" :to="'/design/week-' + index">
     <template v-slot:subtitle>
-      <p>Week Commencing: {{ week.startDate }}</p>
+      <p>Week Commencing: {{ week.formattedDate }}</p>
     </template>
     <template v-slot:action>
 
