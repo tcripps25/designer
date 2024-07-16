@@ -19,7 +19,7 @@ const isActiveLink = computed(() => route.path === to.value);
     inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
     <div
       class="text-xs transition-all max-w-6 max-h-6 min-w-6 min-h-6 border-slate-300 dark:border-zinc-700 border-[.2rem] p-2 flex justify-center items-center rounded-full"
-      :class="isActiveLink ? '!bg-sky-600 text-sky-50 !border-sky-600 dark:border-sky-600 shadow' : 'bg-white dark:bg-zinc-900',
+      :class="isActiveLink ? '!bg-sky-600 text-sky-50 !border-sky-600 dark:border-sky-600 shadow' : 'bg-white dark:bg-zinc-800',
         expanded ? 'absolute -left-8' : 'flex'">
 
       <span class="font-semibold">{{ index + 1 }}</span>
