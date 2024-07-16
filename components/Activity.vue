@@ -253,7 +253,7 @@ const additionalActivities = ref(removeSuggestedActivities(module.moodleActiviti
           </div>
         </div>
         <div class="text-sm pr-5">
-          <div class="flex justify-between items-center  pt-2 mb-1">
+          <div class="flex justify-between items-center pt-2 mb-1">
             <h3 class="font-medium text-gray-700 dark:text-gray-200">Moodle Activities</h3>
             <UButton @click="toggleSuggestMoodle" icon="i-heroicons-plus" size="sm" variant="ghost" />
           </div>
@@ -263,7 +263,7 @@ const additionalActivities = ref(removeSuggestedActivities(module.moodleActiviti
               <Tile :activity="activity" :moodle-activity="moodleActivity" />
             </li>
           </ul>
-          <div v-else class="p-1 bg-slate-100 dark:bg-zinc-900 rounded">
+          <div v-else class="p-2 bg-slate-100 dark:bg-zinc-900 rounded">
             <p class="text-slate-500 italic text-center text-xs">No Moodle Activities selected</p>
           </div>
         </div>
