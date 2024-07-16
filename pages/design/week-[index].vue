@@ -13,7 +13,7 @@ const week = module.getWeek(route.params.index)
 
         <template v-slot:action>
             <UButton @click="module.addActivity(route.params.index)" label="Add Activity" title="Add Activity"
-                class="h-max">
+                class="h-max bg-sky-700">
             </UButton>
         </template>
         <UFormGroup label="Week Name">

@@ -1,6 +1,4 @@
 <script setup>
-
-
 import ConfirmDialog from '@/components/layout/ConfirmDialog.vue';
 
 
@@ -138,6 +136,33 @@ const isAligned = (item) => {
     }
   });
 };
+
+function getRandomActivities(array, maxNumberOfItems) {
+  // Step 1: Copy the array
+  const newArray = array
+  // Step 2: Shuffle the array
+  const shuffledArray = newArray.sort(() => 0.5 - Math.random());
+
+  // Step 3: Determine a random number of items to select, up to the maximum specified
+  const numberOfItems = Math.floor(Math.random() * Math.min(maxNumberOfItems, newArray.length)) + 1;
+
+  // Step 4: Slice the first `numberOfItems` elements
+  return shuffledArray.slice(0, numberOfItems);
+}
+
+const suggestMoodleActivities = getRandomActivities(module.moodleActivities, 3);
+
+function removeSuggestedActivities(array1, array2) {
+  // Step 1: Create a Set from the second array
+  const set2 = new Set(array2);
+
+  // Step 2: Filter the first array to exclude elements that are present in the Set
+  const filteredArray = array1.filter(item => !set2.has(item));
+
+  return filteredArray;
+}
+
+const additionalActivities = ref(removeSuggestedActivities(module.moodleActivities, suggestMoodleActivities));
 </script>
 
 <template>
@@ -148,7 +173,8 @@ const isAligned = (item) => {
       :class="{ 'scale-95 !bg-slate-200 dark:!bg-zinc-900 -translate-x-5': editMode }">
       <template v-slot:action>
         <UDropdown :items="editItems" :popper="{ placement: 'bottom-start' }">
-          <UButton variant="ghost" trailing-icon="i-heroicons-ellipsis-vertical-solid" />
+          <UButton variant="ghost" color="black" class="hover:bg-sky-800 dark:hover:bg-zinc-800"
+            trailing-icon="i-heroicons-ellipsis-vertical-solid" :title="'Edit ' + activity.title" />
         </UDropdown>
       </template>
       <div id="activity-content"
@@ -226,12 +252,18 @@ const isAligned = (item) => {
             <p class="text-slate-500 italic text-center text-xs">No Alignments selected</p>
           </div>
         </div>
-        <div class="text-sm">
-          <div class="flex justify-between items-center pr-5 pt-2 mb-1">
+        <div class="text-sm pr-5">
+          <div class="flex justify-between items-center  pt-2 mb-1">
             <h3 class="font-medium text-gray-700 dark:text-gray-200">Moodle Activities</h3>
-            <UButton icon="i-heroicons-plus" size="sm" variant="ghost" />
+            <UButton @click="toggleSuggestMoodle" icon="i-heroicons-plus" size="sm" variant="ghost" />
           </div>
-          <div class="p-2 bg-slate-100 dark:bg-zinc-900 mr-5 rounded">
+
+          <ul v-if="!activity.selectedMoodle.length == 0" class="grid grid-cols-3 gap-2">
+            <li v-for="(moodleActivity, index) in activity.selectedMoodle" :key="index">
+              <Tile :activity="activity" :moodle-activity="moodleActivity" />
+            </li>
+          </ul>
+          <div v-else class="p-1 bg-slate-100 dark:bg-zinc-900 mr-5 rounded">
             <p class="text-slate-500 italic text-center text-xs">No Moodle Activities selected</p>
           </div>
         </div>
@@ -295,6 +327,38 @@ const isAligned = (item) => {
         </div>
       </ActivitySettingsPanel>
     </Transition>
+
+    <Transition>
+      <ActivitySettingsPanel v-if="suggestMoodle" :title="'Moodle Activities'" :class="{ 'z-10': editTypes }"
+        @close-panel="toggleSuggestMoodle" id="activity-type-select">
+
+        <template v-slot:description>
+          <h4 class="font-semibold mb-3">Suggestions:</h4>
+          <p class="mb-3">Based on your choice of Learning Type this activity would be suitable for use with the
+            following Moodle
+            activity types:</p>
+          <ul class="grid grid-cols-3 grid-flow-row gap-2">
+            <li v-for="(moodleActivity, index) in suggestMoodleActivities" :key="index">
+              <Tile :activity="activity" :moodleActivity="moodleActivity" />
+            </li>
+          </ul>
+
+        </template>
+        <div class="text-sm">
+          <h4 class="font-semibold mb-3">Additional Choices:</h4>
+          <p class="mb-3">If you would like to add other types of Moodle activity choose from the list below:</p>
+
+          <div class="gap-5 mt-4">
+            <ul class="grid grid-cols-3 grid-flow-row gap-2 pr-5">
+              <li v-for="(moodleActivity, index) in additionalActivities" :key="index">
+                <Tile :activity="activity" :moodleActivity="moodleActivity" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ActivitySettingsPanel>
+    </Transition>
+
   </article>
   <ConfirmDialog />
 </template>

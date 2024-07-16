@@ -77,23 +77,25 @@ const editItems = ref([
       </UDropdown>
 
     </template>
-    <div
-      class="flex items-center gap-5 divide-x dark:divide-zinc-800 bg-slate-100 dark:bg-zinc-900 rounded mb-5 p-2 text-sm">
-      <div class="p-3 grow text-sky-800 dark:text-sky-200  flex flex-col justify-center items-center">
+    <div class="flex flex-col gap-5">
+      <UFormGroup label="Description">
+        <UTextarea autoresize v-model="week.description" />
+      </UFormGroup>
+      <div
+        class="flex items-center gap-5 divide-x dark:divide-zinc-800 bg-slate-100 dark:bg-zinc-900 rounded p-2 text-sm">
+        <div class="p-3 grow text-sky-800 dark:text-sky-200  flex flex-col justify-center items-center">
 
-        <span class="font-semibold text-xl">{{ week.activities.length }}</span>
-        <p class="font-medium">Activities</p>
-      </div>
-      <div class="p-3 grow text-orange-800 dark:text-orange-100  flex flex-col justify-center items-center">
+          <span class="font-semibold text-xl">{{ week.activities.length }}</span>
+          <p class="font-medium">Activities</p>
+        </div>
+        <div class="p-3 grow text-orange-800 dark:text-orange-100  flex flex-col justify-center items-center">
 
-        <p class="text-sm"><span class="font-semibold text-xl">{{ module.totalMinsInWeekActivities(index) }} </span>
-          mins
-        </p>
-        <p class="font-medium">Teaching Time</p>
+          <p class="text-sm"><span class="font-semibold text-xl">{{ module.totalMinsInWeekActivities(index) }} </span>
+            mins
+          </p>
+          <p class="font-medium">Teaching Time</p>
+        </div>
       </div>
     </div>
-    <UFormGroup label="Description">
-      <UTextarea v-model="week.description" />
-    </UFormGroup>
   </LayoutPanel>
 </template>

@@ -1,7 +1,6 @@
 export default class Week {
   constructor(name, startDate, description, activities = []) {
     this.name = name;
-    this.startDate = new Date(startDate);
     this.description = description;
     this.activities = activities;
 

@@ -17,7 +17,7 @@ const isWeekPage = computed(() => /\/design\/week-.*/.test(route.path));
 
   <LayoutPage v-else title="Design">
     <template v-slot:action>
-      <UButton @click="module.incrementWeek()" label="Add Week" title="Add Week" class="h-max">
+      <UButton @click="module.incrementWeek()" label="Add Week" title="Add Week" class="h-max bg-sky-700">
       </UButton>
     </template>
     <div class="w-100 grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
