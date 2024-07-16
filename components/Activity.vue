@@ -263,7 +263,7 @@ const additionalActivities = ref(removeSuggestedActivities(module.moodleActiviti
               <Tile :activity="activity" :moodle-activity="moodleActivity" />
             </li>
           </ul>
-          <div v-else class="p-1 bg-slate-100 dark:bg-zinc-900 mr-5 rounded">
+          <div v-else class="p-1 bg-slate-100 dark:bg-zinc-900 rounded">
             <p class="text-slate-500 italic text-center text-xs">No Moodle Activities selected</p>
           </div>
         </div>
